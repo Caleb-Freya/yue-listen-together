@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""给 AI（或你）在命令行用的小工具，走 REST：
+  yue now                      她在放什么、唱到哪、已听到的段落
+  yue say "一句话"             浮在她页面上
+  yue note "一句话"            在此刻这句歌词下批注
+  yue push "歌名或关键字" ["附一句"]   推歌
+  yue notes [n]                最近批注
+  yue talk [n]                 最近对话
+  yue search "关键字"
+配置从 config.json 读（port / api_token），或环境变量 YUE_URL / YUE_TOKEN。
+"""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from yue import config  # noqa: E402
+from yue.mcp import Backend  # noqa: E402
+
+
+def main():
+    cfg = config.load()
+    base = os.environ.get("YUE_URL") or f"http://127.0.0.1:{cfg['port']}"
+    b = Backend(base=base.rstrip("/"), token=os.environ.get("YUE_TOKEN") or cfg.get("api_token"), names=cfg["names"])
+    a = sys.argv[1:]
+    if not a:
+        print(__doc__.strip())
+        return
+    cmd, rest = a[0], a[1:]
+    try:
+        if cmd == "now":
+            print(b.call("now", {}))
+        elif cmd == "say":
+            print(b.call("say", {"text": " ".join(rest)}))
+        elif cmd == "note":
+            print(b.call("note", {"text": " ".join(rest)}))
+        elif cmd == "push":
+            print(b.call("push_song", {"query": rest[0], "message": rest[1] if len(rest) > 1 else ""}))
+        elif cmd == "notes":
+            print(b.call("notes", {"n": int(rest[0]) if rest else 10}))
+        elif cmd == "talk":
+            print(b.call("recent_talk", {"n": int(rest[0]) if rest else 10}))
+        elif cmd == "search":
+            print(b.call("search", {"query": " ".join(rest)}))
+        else:
+            print(__doc__.strip())
+    except Exception as e:
+        print("没成：", str(e)[:200])
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,62 @@
+{
+  "//": "复制成 config.json 再改。以 // 开头的行会被忽略。相对路径都相对于这个文件所在目录。",
+
+  "// host": "只绑本机。要给手机用请走隧道/反代（见 AGENTS.md），别直接改成 0.0.0.0 裸奔。",
+  "host": "127.0.0.1",
+  "port": 8807,
+
+  "// passcode": "页面口令，空=不设口令（只在本机自己用时可以为空）",
+  "passcode": "",
+  "// api_token": "外部系统 / MCP stdio / 命令行调 API 用的令牌，随便生成一串长的",
+  "api_token": "",
+
+  "title": "乐",
+  "// names": "页面上怎么称呼 AI 和你自己",
+  "names": {"ai": "他", "me": "我"},
+
+  "// images": "都可留空，留空用纯 CSS 默认样式。填图片路径。",
+  "images": {"background": "", "tonearm": "", "idle_cover": "", "avatar_ai": "", "avatar_me": ""},
+
+  "data_dir": "./data",
+
+  "// source": "音乐来源：local = 本地文件夹（dir）；urls = 一个 json 列表（file）；或自己写的 '包.模块:类名'",
+  "source": {"kind": "local", "dir": "./music"},
+
+  "// listener": "替 AI 听歌：none = 不听（AI 只拿到歌词）；qwen_omni = 阿里云百炼 Qwen-Omni（OpenAI 兼容接口）。audio: auto|url|base64",
+  "listener": {
+    "kind": "none",
+    "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "api_key": "",
+    "model": "qwen3-omni-flash",
+    "audio": "auto",
+    "timeout": 240
+  },
+
+  "// companions": "陪听 AI 的接法，可以同时开几个。openai：后端自己调模型；webhook：事件发到你的地址。MCP 不用配，服务自带 /mcp。",
+  "companions": [
+    {
+      "kind": "openai",
+      "enabled": false,
+      "base_url": "https://api.openai.com/v1",
+      "api_key": "",
+      "model": "gpt-4o-mini",
+      "system": "",
+      "min_interval": 20,
+      "history": 8,
+      "events": ["song_start", "segment", "say", "note", "song_end"]
+    },
+    {
+      "kind": "webhook",
+      "enabled": false,
+      "url": "http://127.0.0.1:9000/yue-events",
+      "secret": "",
+      "events": ["song_start", "segment", "say", "note", "song_end"]
+    }
+  ],
+
+  "// mcp": "MCP streamable HTTP 挂在 path 上（POST，带 Authorization: Bearer api_token）",
+  "mcp": {"http": true, "path": "/mcp"},
+
+  "// segment_interval": "两次'进入新段落'事件之间至少隔几秒",
+  "segment_interval": 15
+}

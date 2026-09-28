@@ -1,0 +1,17 @@
+[
+  {
+    "name": "示例歌",
+    "artist": "示例歌手",
+    "album": "示例专辑",
+    "url": "https://example.com/music/demo.mp3",
+    "lrc": "https://example.com/music/demo.lrc",
+    "tlrc": "",
+    "cover": "https://example.com/music/demo.jpg"
+  },
+  {
+    "name": "本地文件也行",
+    "artist": "",
+    "url": "./music/local.mp3",
+    "lrc": "[00:01.00]第一句\n[00:05.00]第二句"
+  }
+]

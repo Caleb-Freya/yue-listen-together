@@ -1,0 +1,11 @@
+config.json
+data/
+music/*
+!music/.gitkeep
+songs.json
+__pycache__/
+*.pyc
+.venv/
+*.log
+*.bak*
+.DS_Store
