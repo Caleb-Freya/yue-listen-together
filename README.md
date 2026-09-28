@@ -3,9 +3,10 @@
 一个人和一个 AI 一起听歌的小播放器：她听到哪，AI 就知道到哪；她在歌词旁写一句，AI 在旁边留一句。
 
 <p align="center">
-  <img src="docs/screenshots/1-idle.jpg" width="30%" alt="空闲">
-  <img src="docs/screenshots/2-playing.jpg" width="30%" alt="播放中">
-  <img src="docs/screenshots/3-playlist.jpg" width="30%" alt="歌单">
+  <img src="docs/screenshots/4-talking.jpg" width="23%" alt="边听边聊">
+  <img src="docs/screenshots/1-idle.jpg" width="23%" alt="空闲">
+  <img src="docs/screenshots/2-playing.jpg" width="23%" alt="播放中">
+  <img src="docs/screenshots/3-playlist.jpg" width="23%" alt="歌单">
 </p>
 
 <sub>截图里的背景、唱臂、封面是使用者自己放的图；仓库不带任何图片，不放图也完整可用（纯 CSS 默认样式）。</sub>
@@ -15,7 +16,7 @@
 - 唱片机、逐句歌词（可带翻译）、锁屏控制、五种按情绪换的氛围动效
 - **替 AI 听歌**（可选）：多模态模型按段落听，AI 只知道已经放到的部分，不剧透
 - 批注：点歌词写一句，AI 也能留一句，下次放到那句会冒出来
-- 浮字：对 AI 说话，回话浮在页面上淡出，不打扰听歌
+- **边听边聊（核心）**：你随口说一句，AI 实时回你，话带着头像浮在星空上、几秒后淡出；它还能跟着歌走——副歌进来、唱到某句时主动说话、在歌词下留批注，不挡歌词、不打断音乐
 - 推歌：AI 推一首，页面顶上出卡
 - AI 三种接法：OpenAI 兼容接口 / MCP（stdio + streamable HTTP）/ Webhook + REST
 
